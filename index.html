@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Competências Data Steward - Documentação Integrada</title>
+  <style>
+    :root {
+      --primary: #000000;
+      --primary-light: #f0f0f0;
+      --bg: #f5f5f7;
+      --card-bg: #ffffff;
+      --border: #cccccc;
+      --text: #000000;
+      --text-soft: #333333;
+      --muted: #666666;
+      --shadow: 0 3px 12px rgba(0,0,0,0.1);
+      --radius: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .header {
+      background: var(--card-bg);
+      border-bottom: 2px solid var(--primary);
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .header h1 {
+      margin: 0 0 8px;
+      font-size: 1.8rem;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .header p {
+      margin: 0;
+      color: var(--text-soft);
+      font-size: 0.95rem;
+    }
+
+    .tabs {
+      background: var(--card-bg);
+      border-bottom: 1px solid var(--border);
+      padding: 0 20px;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+    }
+
+    .tab-button {
+      background: transparent;
+      border: none;
+      padding: 14px 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: var(--text-soft);
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s;
+      white-space: nowrap;
+      font-weight: 500;
+    }
+
+    .tab-button:hover {
+      color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .tab-button.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+      font-weight: 600;
+    }
+
+    .tab-content {
+      display: none;
+      padding: 20px;
+      animation: fadeIn 0.3s;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    iframe {
+      width: 100%;
+      height: calc(100vh - 180px);
+      border: none;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .template-content {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+      box-shadow: var(--shadow);
+    }
+
+    .template-content h1 {
+      color: var(--primary);
+      border-bottom: 3px solid var(--primary);
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+
+    .template-content h2 {
+      color: var(--primary);
+      margin-top: 30px;
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+    }
+
+    .template-content h3 {
+      color: var(--text);
+      margin-top: 20px;
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+
+    .info-table {
+      width: 100%;
+      margin: 20px 0;
+      border-collapse: collapse;
+    }
+
+    .info-table td {
+      padding: 10px;
+      border: 1px solid var(--border);
+    }
+
+    .info-table td:first-child {
+      background: #f8f9fa;
+      font-weight: 600;
+      width: 30%;
+    }
+
+    .checkbox-list {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0;
+    }
+
+    .checkbox-list li {
+      padding: 5px 0;
+      position: relative;
+      padding-left: 25px;
+    }
+
+    .checkbox-list li:before {
+      content: "☐";
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-size: 1.1rem;
+    }
+
+    .section-box {
+      background: #f8f9fa;
+      border-left: 4px solid var(--primary);
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 4px;
+    }
+
+    .proficiency-levels {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      margin: 15px 0;
+    }
+
+    .level-card {
+      background: white;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .level-card:hover {
+      border-color: var(--primary);
+      box-shadow: 0 2px 8px rgba(30, 125, 138, 0.15);
+    }
+
+    .level-card h4 {
+      margin: 0 0 8px;
+      color: var(--primary);
+    }
+
+    .level-card p {
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--text-soft);
+    }
+
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 1.4rem;
+      }
+
+      .tabs {
+        padding: 0 10px;
+      }
+
+      .tab-button {
+        padding: 12px 16px;
+        font-size: 0.85rem;
+      }
+
+      .tab-content {
+        padding: 15px;
+      }
+
+      .template-content {
+        padding: 20px;
+      }
+
+      iframe {
+        height: calc(100vh - 200px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Matriz Integrada de Competências</h1>
+    <p><strong>Maíra Lima - Expert Data Steward</strong></p>
+    <p style="margin-top: 8px;">Documentação Integrada - EDISON Framework, NPOS, Curriculum Draft e Mapeamento MLS 2026</p>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-button active" onclick="openTab(event, 'tab-sobre')">
+      Sobre
+    </button>
+    <button class="tab-button" onclick="openTab(event, 'tab1')">
+      Matriz de Competências v7
+    </button>
+    <button class="tab-button" onclick="openTab(event, 'tab3')">
+      Template de Avaliação
+    </button>
+  </div>
+
+  <div id="tab-sobre" class="tab-content active">
+    <div class="template-content" style="max-width: 1000px;">
+      <h1 style="border-bottom: 3px solid var(--primary); padding-bottom: 15px; margin-bottom: 25px;">
+        Sobre a Matriz Integrada de Competências
+      </h1>
+      
+      <div style="background: var(--primary-light); padding: 20px; border-radius: 10px; margin-bottom: 30px;">
+        <p style="font-size: 1.1rem; line-height: 1.6; margin: 0; color: var(--text);">
+          Esta matriz integrada reúne competências técnicas, comportamentais e regulatórias 
+          essenciais para a atuação como Data Steward em contextos governamentais e organizacionais 
+          complexos. O framework foi desenvolvido com base em referências internacionais e adaptado 
+          ao contexto brasileiro, contemplando aspectos de governança de dados, inteligência artificial 
+          e políticas públicas.
+        </p>
+      </div>
+
+      <div style="margin-bottom: 30px;">
+        <h2 style="color: var(--primary); margin-bottom: 15px;">Documentação Base</h2>
+        <p style="margin-bottom: 15px;">Esta matriz foi desenvolvida com base em:</p>
+        <ul style="line-height: 1.8;">
+          <li><strong>EDISON Framework</strong> - Framework europeu de competências em Data Science</li>
+          <li><strong>NPOS (Netherlands Platform Open Science)</strong> - Diretrizes holandesas para Data Stewardship</li>
+          <li><strong>Curriculum Draft</strong> - Proposta curricular para formação em Data Stewardship</li>
+          <li><strong>Mapeamento MLS 2026</strong> - Data Stewardship Decoded + PL 2338/2023</li>
+          <li><strong>CadÚnico</strong> - Contexto brasileiro de dados sociais</li>
+        </ul>
+      </div>
+
+      <div style="margin-bottom: 30px;">
+        <h2 style="color: var(--primary); margin-bottom: 15px;">Objetivos da Matriz</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+          <div style="background: white; border-left: 4px solid var(--primary); padding: 15px; border-radius: 8px; box-shadow: var(--shadow);">
+            <h3 style="color: var(--primary); margin: 0 0 10px; font-size: 1rem;">Mapeamento de Competências</h3>
+            <p style="margin: 0; font-size: 0.9rem;">Identificar e documentar habilidades técnicas e comportamentais necessárias para Data Stewards</p>
+          </div>
+          <div style="background: white; border-left: 4px solid var(--primary); padding: 15px; border-radius: 8px; box-shadow: var(--shadow);">
+            <h3 style="color: var(--primary); margin: 0 0 10px; font-size: 1rem;">Avaliação de Proficiência</h3>
+            <p style="margin: 0; font-size: 0.9rem;">Estabelecer níveis de desenvolvimento e criar planos de capacitação personalizados</p>
+          </div>
+          <div style="background: white; border-left: 4px solid var(--primary); padding: 15px; border-radius: 8px; box-shadow: var(--shadow);">
+            <h3 style="color: var(--primary); margin: 0 0 10px; font-size: 1rem;">Conformidade Regulatória</h3>
+            <p style="margin: 0; font-size: 0.9rem;">Garantir alinhamento com LGPD, PL 2338/2023 e frameworks internacionais de IA</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-bottom: 30px;">
+        <h2 style="color: var(--primary); margin-bottom: 15px;">Áreas de Competência</h2>
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 8px;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
+            <div style="padding: 10px; background: white; border-radius: 6px;">
+              <strong style="color: var(--primary);">Governança de Dados</strong>
+              <p style="margin: 5px 0 0; font-size: 0.85rem; color: var(--text-soft);">Políticas, metadados, frameworks</p>
+            </div>
+            <div style="padding: 10px; background: white; border-radius: 6px;">
+              <strong style="color: var(--primary);">Qualidade de Dados</strong>
+              <p style="margin: 5px 0 0; font-size: 0.85rem; color: var(--text-soft);">Auditoria, profiling, validação</p>
+            </div>
+            <div style="padding: 10px; background: white; border-radius: 6px;">
+              <strong style="color: var(--primary);">Princípios FAIR</strong>
+              <p style="margin: 5px 0 0; font-size: 0.85rem; color: var(--text-soft);">Findable, Accessible, Interoperable, Reusable</p>
+            </div>
+            <div style="padding: 10px; background: white; border-radius: 6px;">
+              <strong style="color: var(--primary);">Privacidade e Segurança</strong>
+              <p style="margin: 5px 0 0; font-size: 0.85rem; color: var(--text-soft);">LGPD, GDPR, controles de acesso</p>
+            </div>
+            <div style="padding: 10px; background: white; border-radius: 6px;">
+              <strong style="color: var(--primary);">Inteligência Artificial</strong>
+              <p style="margin: 5px 0 0; font-size: 0.85rem; color: var(--text-soft);">AI readiness, fairness, auditoria</p>
+            </div>
+            <div style="padding: 10px; background: white; border-radius: 6px;">
+              <strong style="color: var(--primary);">Competências Comportamentais</strong>
+              <p style="margin: 5px 0 0; font-size: 0.85rem; color: var(--text-soft);">Comunicação, ética, mediação</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background: var(--primary-light); padding: 20px; border-radius: 8px; border-left: 5px solid var(--primary);">
+        <h2 style="color: var(--primary); margin: 0 0 15px;">Como Utilizar esta Matriz</h2>
+        <ol style="line-height: 1.8; margin: 0;">
+          <li><strong>Aba "Matriz de Competências v7"</strong>: Explore a matriz completa com filtros interativos por perfil, senioridade e área</li>
+          <li><strong>Aba "Template de Avaliação"</strong>: Preencha o formulário de autoavaliação para identificar competências e criar seu plano de desenvolvimento</li>
+          <li>Use os filtros e ferramentas para personalizar a visualização conforme suas necessidades</li>
+        </ol>
+      </div>
+
+      <div style="margin-top: 30px; padding: 20px; background: white; border-radius: 8px; border: 2px solid var(--border);">
+        <h3 style="color: var(--primary); margin: 0 0 15px;">Matriz Integrada de Competências</h3>
+        <iframe src="matriz_competencias_maira_lima.html" 
+                title="Matriz Maira Lima" 
+                style="width: 100%; height: 600px; border: 1px solid var(--border); border-radius: 8px;"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab1" class="tab-content">
+    <iframe src="matriz_competencias_v7_navegavel_MLS.html" title="Matriz de Competências v7"></iframe>
+  </div>
+
+  <div id="tab3" class="tab-content">
+    <div class="template-content">
+      <h1>TEMPLATE DE COLETA DE COMPETÊNCIAS - DATA STEWARD</h1>
+      <p style="color: var(--text-soft); font-style: italic; margin-bottom: 20px;">
+        Baseado em EDISON Framework, NPOS, Curriculum Draft e Mapeamento MLS 2026 (Data Stewardship Decoded + PL 2338/2023)<br>
+        Versão 2.0 - 2026
+      </p>
+
+      <h2>1. INFORMAÇÕES DO PROFISSIONAL</h2>
+      <table class="info-table">
+        <tr>
+          <td><strong>Nome Completo:</strong></td>
+          <td contenteditable="true" style="background: #f9f9f9;"></td>
+        </tr>
+        <tr>
+          <td><strong>Instituição/Organização:</strong></td>
+          <td contenteditable="true" style="background: #f9f9f9;"></td>
+        </tr>
+        <tr>
+          <td><strong>Cargo/Posição Atual:</strong></td>
+          <td contenteditable="true" style="background: #f9f9f9;"></td>
+        </tr>
+        <tr>
+          <td><strong>Formação Acadêmica:</strong></td>
+          <td contenteditable="true" style="background: #f9f9f9;"></td>
+        </tr>
+        <tr>
+          <td><strong>Tempo de Experiência em Data Stewardship:</strong></td>
+          <td contenteditable="true" style="background: #f9f9f9;"></td>
+        </tr>
+        <tr>
+          <td><strong>Área de Atuação Principal:</strong></td>
+          <td contenteditable="true" style="background: #f9f9f9;"></td>
+        </tr>
+        <tr>
+          <td><strong>Data da Avaliação:</strong></td>
+          <td contenteditable="true" style="background: #f9f9f9;"></td>
+        </tr>
+      </table>
+
+      <h2>2. PERFIL E NÍVEL DE PROFICIÊNCIA</h2>
+      
+      <h3>2.1 PERFIL DE DATA STEWARD</h3>
+      <p>Marque o(s) perfil(is) que melhor descreve(m) sua atuação:</p>
+      <ul class="checkbox-list">
+        <li>Data Steward Geral/Transversal - Competências amplas em gestão de dados</li>
+        <li>Data Steward Técnico/IA - Especializado em aspectos técnicos e inteligência artificial</li>
+        <li>Data Steward Policy/Regulatory - Focado em políticas, regulação e conformidade</li>
+        <li>Data Steward Engagement/Community - Focado em engajamento e participação social</li>
+      </ul>
+
+      <h3>2.2 NÍVEL DE SENIORIDADE</h3>
+      <p>Marque o nível que melhor representa sua experiência e responsabilidades:</p>
+      
+      <div class="proficiency-levels">
+        <div class="level-card">
+          <h4>☐ Júnior</h4>
+          <p><strong>0 a 2 anos de experiência</strong></p>
+          <ul style="font-size: 0.8rem; padding-left: 18px; margin-top: 8px;">
+            <li>Acompanha desenvolvimentos em RDM e governança de dados</li>
+            <li>Trabalha sob supervisão em projetos de gestão de dados</li>
+            <li>Apoia implementação de boas práticas e políticas</li>
+            <li>Garante qualidade básica e interoperabilidade de dados</li>
+          </ul>
+        </div>
+
+        <div class="level-card">
+          <h4>☐ Pleno</h4>
+          <p><strong>2 a 5 anos de experiência</strong></p>
+          <ul style="font-size: 0.8rem; padding-left: 18px; margin-top: 8px;">
+            <li>Desenvolve e adapta treinamentos e serviços existentes</li>
+            <li>Participa ativamente em desenvolvimentos locais e nacionais</li>
+            <li>Monitora necessidades de stakeholders</li>
+            <li>Contribui para desenvolvimento de políticas</li>
+            <li>Orienta profissionais júnior</li>
+          </ul>
+        </div>
+
+        <div class="level-card">
+          <h4>☐ Sênior</h4>
+          <p><strong>5 a 10 anos de experiência</strong></p>
+          <ul style="font-size: 0.8rem; padding-left: 18px; margin-top: 8px;">
+            <li>Analisa necessidades estratégicas e identifica lacunas</li>
+            <li>Desenvolve serviços e soluções inovadoras</li>
+            <li>Atua como ponte entre diferentes áreas e organizações</li>
+            <li>Aconselha formuladores de políticas</li>
+            <li>Supervisiona fluxos de trabalho complexos</li>
+          </ul>
+        </div>
+
+        <div class="level-card">
+          <h4>☐ Expert</h4>
+          <p><strong>10+ anos de experiência</strong></p>
+          <ul style="font-size: 0.8rem; padding-left: 18px; margin-top: 8px;">
+            <li>Lidera desenvolvimentos em nível nacional/internacional</li>
+            <li>Influencia políticas institucionais e setoriais</li>
+            <li>Referência reconhecida em data stewardship</li>
+            <li>Mentora profissionais e organizações</li>
+            <li>Publica e apresenta em conferências internacionais</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2>3. COMPETÊNCIAS TÉCNICAS</h2>
+      <p style="background: var(--primary-light); padding: 10px; border-radius: 6px; margin: 15px 0;">
+        <strong>Avalie seu nível de proficiência:</strong> ☐ Básico | ☐ Intermediário | ☐ Avançado | ☐ Não se aplica
+      </p>
+
+      <div class="section-box">
+        <h3>3.1 GOVERNANÇA DE DADOS E METADADOS</h3>
+        <p><strong>Nível de Proficiência:</strong></p>
+        <ul class="checkbox-list">
+          <li>Básico - Compreende princípios fundamentais</li>
+          <li>Intermediário - Aplica frameworks em contextos práticos</li>
+          <li>Avançado - Desenvolve estratégias e lidera implementações</li>
+          <li>Não se aplica</li>
+        </ul>
+        
+        <p><strong>Competências Específicas:</strong></p>
+        <ul class="checkbox-list">
+          <li>Políticas e procedimentos de governança de dados</li>
+          <li>Frameworks de governança (DAMA DMBOK, COBIT, etc.)</li>
+          <li>Gestão de metadados e dicionários de dados</li>
+          <li>Atribuição de identificadores persistentes (DOI, ORCID)</li>
+          <li>Comitês e estruturas de governança</li>
+          <li>Métricas e KPIs de governança</li>
+        </ul>
+      </div>
+
+      <div class="section-box">
+        <h3>3.2 AUDITORIA E AVALIAÇÃO DE DADOS</h3>
+        <p><strong>Nível de Proficiência:</strong> ☐ Básico | ☐ Intermediário | ☐ Avançado | ☐ Não se aplica</p>
+        
+        <p><strong>Competências Específicas:</strong></p>
+        <ul class="checkbox-list">
+          <li>Identificação e documentação de datasets</li>
+          <li>Avaliação de qualidade, completude e adequação</li>
+          <li>Mapeamento de ativos de dados</li>
+          <li>Avaliação de viabilidade para reuso</li>
+          <li>Auditorias de conformidade e qualidade</li>
+        </ul>
+      </div>
+
+      <div class="section-box">
+        <h3>3.3 QUALIDADE E REPRESENTATIVIDADE DE DADOS</h3>
+        <p><strong>Nível de Proficiência:</strong> ☐ Básico | ☐ Intermediário | ☐ Avançado | ☐ Não se aplica</p>
+        
+        <p><strong>Competências Específicas:</strong></p>
+        <ul class="checkbox-list">
+          <li>Dimensões de qualidade de dados (acurácia, completude, consistência)</li>
+          <li>Data profiling e assessment</li>
+          <li>Identificação de gaps e erros sistemáticos</li>
+          <li>Avaliação de representatividade populacional</li>
+          <li>Limpeza e correção de dados</li>
+          <li>Monitoramento contínuo de qualidade</li>
+        </ul>
+      </div>
+
+      <div class="section-box">
+        <h3>3.4 PRINCÍPIOS FAIR E INTEROPERABILIDADE</h3>
+        <p><strong>Nível de Proficiência:</strong> ☐ Básico | ☐ Intermediário | ☐ Avançado | ☐ Não se aplica</p>
+        
+        <p><strong>Competências Específicas:</strong></p>
+        <ul class="checkbox-list">
+          <li>Findable - Documentação e indexação de dados</li>
+          <li>Accessible - Protocolos de acesso e autenticação</li>
+          <li>Interoperable - Formatos padronizados e vocabulários controlados</li>
+          <li>Reusable - Licenciamento e curadoria para reuso</li>
+          <li>Arquitetura de dados e interoperabilidade semântica</li>
+          <li>Ontologias e padrões de metadados</li>
+        </ul>
+      </div>
+
+      <div class="section-box">
+        <h3>3.5 SEGURANÇA DA INFORMAÇÃO E PRIVACIDADE</h3>
+        <p><strong>Nível de Proficiência:</strong> ☐ Básico | ☐ Intermediário | ☐ Avançado | ☐ Não se aplica</p>
+        
+        <p><strong>Competências Específicas:</strong></p>
+        <ul class="checkbox-list">
+          <li>LGPD (Lei Geral de Proteção de Dados Pessoais)</li>
+          <li>GDPR e outras legislações internacionais</li>
+          <li>Controles de acesso (RBAC) e autenticação</li>
+          <li>Criptografia e técnicas de anonimização</li>
+          <li>Gestão de consentimento e preferências</li>
+          <li>Proteção contra vazamentos e gestão de incidentes</li>
+          <li>Auditorias de segurança</li>
+        </ul>
+      </div>
+
+      <div class="section-box">
+        <h3>3.6 FRAMEWORKS REGULATÓRIOS DE IA E DADOS</h3>
+        <p><strong>Nível de Proficiência:</strong> ☐ Básico | ☐ Intermediário | ☐ Avançado | ☐ Não se aplica</p>
+        
+        <p><strong>Competências Específicas:</strong></p>
+        <ul class="checkbox-list">
+          <li>PL 2338/2023 (Marco Regulatório de IA no Brasil)</li>
+          <li>LGPD e sua aplicação em contextos de IA</li>
+          <li>ISO/IEC 42001 (Sistemas de Gestão de IA)</li>
+          <li>NIST AI Risk Management Framework</li>
+          <li>EU AI Act e regulações internacionais</li>
+          <li>Normas setoriais específicas</li>
+        </ul>
+      </div>
+
+      <h2>4. COMPETÊNCIAS EM INTELIGÊNCIA ARTIFICIAL (IA)</h2>
+      <p style="font-style: italic; color: var(--text-soft); margin-bottom: 15px;">
+        Esta seção foi adicionada com base no mapeamento MLS 2026
+      </p>
+
+      <div class="section-box">
+        <h3>4.1 AI READINESS E PREPARAÇÃO DE DADOS</h3>
+        <p><strong>Nível de Proficiência:</strong> ☐ Básico | ☐ Intermediário | ☐ Avançado | ☐ Não se aplica</p>
+        
+        <p><strong>Competências Específicas:</strong></p>
+        <ul class="checkbox-list">
+          <li>Preparação de datasets para sistemas de IA</li>
+          <li>Anotação e labelização de dados</li>
+          <li>Estruturação adequada para ML/AI</li>
+          <li>Detecção de vieses em datasets</li>
+          <li>Implementação de mecanismos de mitigação de vieses</li>
+          <li>Validação de representatividade para treinamento</li>
+        </ul>
+      </div>
+
+      <div class="section-box">
+        <h3>4.2 ANÁLISE DE IMPACTO ALGORÍTMICO</h3>
+        <p><strong>Nível de Proficiência:</strong> ☐ Básico | ☐ Intermediário | ☐ Avançado | ☐ Não se aplica</p>
+        
+        <p><strong>Competências Específicas:</strong></p>
+        <ul class="checkbox-list">
+          <li>Avaliação de riscos éticos de sistemas de IA</li>
+          <li>Identificação de vieses discriminatórios</li>
+          <li>Análise de impactos sociais e econômicos</li>
+          <li>Avaliação de vulnerabilidades em algoritmos</li>
+          <li>AIAs (Algorithmic Impact Assessments)</li>
+          <li>Documentação de decisões automatizadas</li>
+        </ul>
+      </div>
+
+      <div class="section-box">
+        <h3>4.3 MÉTRICAS DE EQUIDADE E FAIRNESS</h3>
+        <p><strong>Nível de Proficiência:</strong> ☐ Básico | ☐ Intermediário | ☐ Avançado | ☐ Não se aplica</p>
+        
+        <p><strong>Competências Específicas:</strong></p>
+        <ul class="checkbox-list">
+          <li>Cálculo de taxas de falsos positivos/negativos</li>
+          <li>Análise desagregada por grupos demográficos</li>
+          <li>Disparate impact e statistical parity</li>
+          <li>Equal opportunity e equalized odds</li>
+          <li>Monitoramento contínuo de métricas de fairness</li>
+          <li>Reporting de indicadores de equidade</li>
+        </ul>
+      </div>
+
+      <div class="section-box">
+        <h3>4.4 AUDITORIA DE SISTEMAS DE IA</h3>
+        <p><strong>Nível de Proficiência:</strong> ☐ Básico | ☐ Intermediário | ☐ Avançado | ☐ Não se aplica</p>
+        
+        <p><strong>Competências Específicas:</strong></p>
+        <ul class="checkbox-list">
+          <li>Revisão de código de sistemas de IA</li>
+          <li>Análise de logs e decisões automatizadas</li>
+          <li>Avaliação de métricas de desempenho</li>
+          <li>Verificação de conformidade técnica e ética</li>
+          <li>Testes de robustez e adversarial testing</li>
+          <li>Validação de explicabilidade</li>
+        </ul>
+      </div>
+
+      <div class="section-box">
+        <h3>4.5 GESTÃO DE CRUZAMENTO DE BASES DE DADOS</h3>
+        <p><strong>Nível de Proficiência:</strong> ☐ Básico | ☐ Intermediário | ☐ Avançado | ☐ Não se aplica</p>
+        
+        <p><strong>Competências Específicas:</strong></p>
+        <ul class="checkbox-list">
+          <li>Planejamento de cruzamentos entre bases</li>
+          <li>Documentação de processos de integração</li>
+          <li>Definição de thresholds e salvaguardas</li>
+          <li>Avaliação de qualidade de matching</li>
+          <li>Gestão de aspectos legais e éticos</li>
+          <li>Matrizes de cruzamento autorizados</li>
+        </ul>
+      </div>
+
+      <h2>5. COMPETÊNCIAS COMPORTAMENTAIS E TRANSVERSAIS</h2>
+
+      <div class="section-box">
+        <h3>5.1 MEDIAÇÃO E ARTICULAÇÃO INTERINSTITUCIONAL</h3>
+        <p><strong>Nível de Desenvolvimento:</strong> ☐ Em desenvolvimento | ☐ Competente | ☐ Proficiente | ☐ Expert</p>
+        <p>Capacidade de atuar como ponte entre diferentes stakeholders (técnicos, jurídicos, gestores, usuários finais), facilitando diálogo, negociação e alinhamento de expectativas.</p>
+      </div>
+
+      <div class="section-box">
+        <h3>5.2 ENGAJAMENTO COMUNITÁRIO E PARTICIPAÇÃO SOCIAL</h3>
+        <p><strong>Nível de Desenvolvimento:</strong> ☐ Em desenvolvimento | ☐ Competente | ☐ Proficiente | ☐ Expert</p>
+        <p>Habilidade de envolver comunidades afetadas em processos de governança de dados, incluindo consultas públicas, deliberações e co-design de políticas.</p>
+      </div>
+
+      <div class="section-box">
+        <h3>5.3 COMUNICAÇÃO PARA PÚBLICOS DIVERSOS</h3>
+        <p><strong>Nível de Desenvolvimento:</strong> ☐ Em desenvolvimento | ☐ Competente | ☐ Proficiente | ☐ Expert</p>
+        <p>Tradução de conceitos técnicos complexos em linguagem acessível para diferentes públicos: cidadãos, gestores, legisladores, técnicos.</p>
+      </div>
+
+      <div class="section-box">
+        <h3>5.4 PENSAMENTO CRÍTICO E QUESTIONAMENTO ÉTICO</h3>
+        <p><strong>Nível de Desenvolvimento:</strong> ☐ Em desenvolvimento | ☐ Competente | ☐ Proficiente | ☐ Expert</p>
+        <p>Postura de questionamento constante sobre pressupostos técnicos, finalidades de sistemas e potenciais impactos discriminatórios, mesmo diante de pressões institucionais.</p>
+      </div>
+
+      <div class="section-box">
+        <h3>5.5 VISÃO SISTÊMICA E PENSAMENTO ESTRATÉGICO</h3>
+        <p><strong>Nível de Desenvolvimento:</strong> ☐ Em desenvolvimento | ☐ Competente | ☐ Proficiente | ☐ Expert</p>
+        <p>Compreensão holística da cadeia de valor de dados e IA, desde coleta até decisão final, e capacidade de antecipar impactos de longo prazo.</p>
+      </div>
+
+      <div class="section-box">
+        <h3>5.6 ÉTICA APLICADA E RESPONSABILIDADE SOCIAL</h3>
+        <p><strong>Nível de Desenvolvimento:</strong> ☐ Em desenvolvimento | ☐ Competente | ☐ Proficiente | ☐ Expert</p>
+        <p>Fundamentação teórica e prática em ética de dados e IA, com compromisso ativo com justiça social, não-discriminação e proteção de direitos fundamentais.</p>
+      </div>
+
+      <div class="section-box">
+        <h3>5.7 GESTÃO DE MUDANÇA ORGANIZACIONAL</h3>
+        <p><strong>Nível de Desenvolvimento:</strong> ☐ Em desenvolvimento | ☐ Competente | ☐ Proficiente | ☐ Expert</p>
+        <p>Condução de processos de transformação digital e cultural, incluindo gestão de resistências, capacitação de equipes e institucionalização de novas práticas.</p>
+      </div>
+
+      <div class="section-box">
+        <h3>5.8 ANÁLISE DE POLÍTICAS PÚBLICAS</h3>
+        <p><strong>Nível de Desenvolvimento:</strong> ☐ Em desenvolvimento | ☐ Competente | ☐ Proficiente | ☐ Expert</p>
+        <p>Compreensão do ciclo de políticas públicas e capacidade de avaliar como decisões sobre dados e IA impactam objetivos de programas sociais.</p>
+      </div>
+
+      <div class="section-box">
+        <h3>5.9 GESTÃO DE RISCOS MULTIDIMENSIONAIS</h3>
+        <p><strong>Nível de Desenvolvimento:</strong> ☐ Em desenvolvimento | ☐ Competente | ☐ Proficiente | ☐ Expert</p>
+        <p>Identificação, avaliação e mitigação de riscos técnicos, legais, reputacionais, éticos e sociais em projetos envolvendo dados e IA.</p>
+      </div>
+
+      <h2>6. COMPETÊNCIAS DE GESTÃO E GOVERNANÇA</h2>
+
+      <div class="section-box">
+        <h3>6.1 DESENHO E IMPLEMENTAÇÃO DE ESTRUTURAS DE GOVERNANÇA</h3>
+        <p><strong>Nível de Experiência:</strong> ☐ Nenhuma | ☐ Básica | ☐ Moderada | ☐ Substancial | ☐ Liderança</p>
+        <p><strong>Responsabilidades:</strong></p>
+        <ul class="checkbox-list">
+          <li>Criação de comitês e estruturas de governança</li>
+          <li>Desenvolvimento de políticas e procedimentos</li>
+          <li>Definição de fluxos de decisão</li>
+          <li>Atribuição de responsabilidades</li>
+        </ul>
+      </div>
+
+      <div class="section-box">
+        <h3>6.2 ELABORAÇÃO DE CÓDIGOS DE CONDUTA E FRAMEWORKS</h3>
+        <p><strong>Nível de Experiência:</strong> ☐ Nenhuma | ☐ Básica | ☐ Moderada | ☐ Substancial | ☐ Liderança</p>
+        <p><strong>Responsabilidades:</strong></p>
+        <ul class="checkbox-list">
+          <li>Desenvolvimento de instrumentos de autorregulação</li>
+          <li>Criação de procedimentos operacionais</li>
+          <li>Definição de salvaguardas específicas</li>
+          <li>Adaptação de frameworks internacionais ao contexto local</li>
+        </ul>
+      </div>
+
+      <div class="section-box">
+        <h3>6.3 GESTÃO DE COMPLIANCE E AUDITORIA</h3>
+        <p><strong>Nível de Experiência:</strong> ☐ Nenhuma | ☐ Básica | ☐ Moderada | ☐ Substancial | ☐ Liderança</p>
+        <p><strong>Responsabilidades:</strong></p>
+        <ul class="checkbox-list">
+          <li>Monitoramento de conformidade regulatória</li>
+          <li>Condução de auditorias internas</li>
+          <li>Gestão de não-conformidades</li>
+          <li>Reporting para autoridades competentes</li>
+        </ul>
+      </div>
+
+      <div class="section-box">
+        <h3>6.4 GESTÃO DE RECLAMAÇÕES E CONTESTAÇÕES</h3>
+        <p><strong>Nível de Experiência:</strong> ☐ Nenhuma | ☐ Básica | ☐ Moderada | ☐ Substancial | ☐ Liderança</p>
+        <p><strong>Responsabilidades:</strong></p>
+        <ul class="checkbox-list">
+          <li>Desenho de canais de contestação</li>
+          <li>Triagem e investigação de casos</li>
+          <li>Garantia de due process</li>
+          <li>Resolução de denúncias</li>
+        </ul>
+      </div>
+
+      <div class="section-box">
+        <h3>6.5 GESTÃO DE PARCERIAS INTERSETORIAIS</h3>
+        <p><strong>Nível de Experiência:</strong> ☐ Nenhuma | ☐ Básica | ☐ Moderada | ☐ Substancial | ☐ Liderança</p>
+        <p><strong>Responsabilidades:</strong></p>
+        <ul class="checkbox-list">
+          <li>Estruturação de data collaboratives</li>
+          <li>Negociação de acordos de cooperação</li>
+          <li>Gestão de consórcios</li>
+          <li>Facilitação de reuso responsável de dados</li>
+        </ul>
+      </div>
+
+      <div class="section-box">
+        <h3>6.6 MEDIÇÃO E MONITORAMENTO DE IMPACTO</h3>
+        <p><strong>Nível de Experiência:</strong> ☐ Nenhuma | ☐ Básica | ☐ Moderada | ☐ Substancial | ☐ Liderança</p>
+        <p><strong>Responsabilidades:</strong></p>
+        <ul class="checkbox-list">
+          <li>Definição de KPIs e métricas</li>
+          <li>Coleta de dados de desempenho</li>
+          <li>Análise de impacto social</li>
+          <li>Reporting para stakeholders</li>
+        </ul>
+      </div>
+
+      <h2>7. FERRAMENTAS E TECNOLOGIAS</h2>
+      <p>Indique seu nível de familiaridade (marque todas que se aplicam):</p>
+
+      <div class="section-box">
+        <h3>7.1 FERRAMENTAS DE GESTÃO DE DADOS</h3>
+        <ul class="checkbox-list">
+          <li>DMPTool / DMPonline</li>
+          <li>OpenRefine</li>
+          <li>DataCite / DOI minting</li>
+          <li>ORCID</li>
+          <li>Trifacta / Alteryx (data wrangling)</li>
+          <li>Outras: <input type="text" style="border: none; border-bottom: 1px solid var(--border); width: 300px; padding: 2px;"></li>
+        </ul>
+      </div>
+
+      <div class="section-box">
+        <h3>7.2 REPOSITÓRIOS DE DADOS</h3>
+        <ul class="checkbox-list">
+          <li>Zenodo</li>
+          <li>Figshare</li>
+          <li>Dryad</li>
+          <li>OSF (Open Science Framework)</li>
+          <li>Repositórios institucionais</li>
+          <li>Repositórios específicos de domínio</li>
+          <li>Outras: <input type="text" style="border: none; border-bottom: 1px solid var(--border); width: 300px; padding: 2px;"></li>
+        </ul>
+      </div>
+
+      <div class="section-box">
+        <h3>7.3 FERRAMENTAS DE IA E MACHINE LEARNING</h3>
+        <ul class="checkbox-list">
+          <li>Python (pandas, numpy, scikit-learn)</li>
+          <li>R (tidyverse, caret)</li>
+          <li>TensorFlow / PyTorch</li>
+          <li>Jupyter Notebooks</li>
+          <li>MLflow / Weights & Biases (MLOps)</li>
+          <li>Fairlearn / AI Fairness 360</li>
+          <li>LIME / SHAP (explicabilidade)</li>
+          <li>Outras: <input type="text" style="border: none; border-bottom: 1px solid var(--border); width: 300px; padding: 2px;"></li>
+        </ul>
+      </div>
+
+      <div class="section-box">
+        <h3>7.4 FERRAMENTAS DE GOVERNANÇA E COMPLIANCE</h3>
+        <ul class="checkbox-list">
+          <li>Collibra / Alation (data governance)</li>
+          <li>OneTrust / TrustArc (privacy management)</li>
+          <li>Tableau / Power BI (dashboards)</li>
+          <li>Great Expectations (data quality)</li>
+          <li>dbt (data transformation)</li>
+          <li>Outras: <input type="text" style="border: none; border-bottom: 1px solid var(--border); width: 300px; padding: 2px;"></li>
+        </ul>
+      </div>
+
+      <div class="section-box">
+        <h3>7.5 PADRÕES DE METADADOS</h3>
+        <ul class="checkbox-list">
+          <li>Dublin Core</li>
+          <li>DataCite Metadata Schema</li>
+          <li>DDI (Data Documentation Initiative)</li>
+          <li>Schema.org</li>
+          <li>DCAT (Data Catalog Vocabulary)</li>
+          <li>Padrões específicos de domínio</li>
+          <li>Outras: <input type="text" style="border: none; border-bottom: 1px solid var(--border); width: 300px; padding: 2px;"></li>
+        </ul>
+      </div>
+
+      <h2>8. FORMAÇÃO E DESENVOLVIMENTO PROFISSIONAL</h2>
+
+      <div class="section-box">
+        <h3>8.1 CURSOS E CERTIFICAÇÕES</h3>
+        <p>Liste cursos, certificações e treinamentos relevantes completados:</p>
+        <table style="width: 100%; margin-top: 10px; border-collapse: collapse;">
+          <thead>
+            <tr style="background: #eeeeee;">
+              <th style="padding: 8px; border: 1px solid var(--border); text-align: left;">Curso/Certificação</th>
+              <th style="padding: 8px; border: 1px solid var(--border); text-align: left;">Instituição</th>
+              <th style="padding: 8px; border: 1px solid var(--border); text-align: left;">Ano</th>
+              <th style="padding: 8px; border: 1px solid var(--border); text-align: left;">Carga Horária</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td contenteditable="true" style="padding: 8px; border: 1px solid var(--border); background: #f9f9f9;"></td>
+              <td contenteditable="true" style="padding: 8px; border: 1px solid var(--border); background: #f9f9f9;"></td>
+              <td contenteditable="true" style="padding: 8px; border: 1px solid var(--border); background: #f9f9f9;"></td>
+              <td contenteditable="true" style="padding: 8px; border: 1px solid var(--border); background: #f9f9f9;"></td>
+            </tr>
+            <tr>
+              <td contenteditable="true" style="padding: 8px; border: 1px solid var(--border); background: #f9f9f9;"></td>
+              <td contenteditable="true" style="padding: 8px; border: 1px solid var(--border); background: #f9f9f9;"></td>
+              <td contenteditable="true" style="padding: 8px; border: 1px solid var(--border); background: #f9f9f9;"></td>
+              <td contenteditable="true" style="padding: 8px; border: 1px solid var(--border); background: #f9f9f9;"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-box">
+        <h3>8.2 PARTICIPAÇÃO EM COMUNIDADES</h3>
+        <ul class="checkbox-list">
+          <li>Research Data Alliance (RDA)</li>
+          <li>FORCE11</li>
+          <li>GO FAIR</li>
+          <li>Data Science for Social Good</li>
+          <li>Associações profissionais brasileiras</li>
+          <li>Outras: <input type="text" style="border: none; border-bottom: 1px solid var(--border); width: 300px; padding: 2px;"></li>
+        </ul>
+      </div>
+
+      <h2>9. PLANO DE DESENVOLVIMENTO PROFISSIONAL</h2>
+
+      <div class="section-box">
+        <h3>9.1 COMPETÊNCIAS PRIORITÁRIAS A DESENVOLVER</h3>
+        <p>Com base na autoavaliação, identifique áreas prioritárias:</p>
+        
+        <div style="margin: 15px 0;">
+          <p><strong>Competência 1:</strong></p>
+          <input type="text" style="width: 100%; padding: 8px; border: 1px solid var(--border); border-radius: 4px; margin-bottom: 5px;" placeholder="Digite a competência">
+          <p><strong>Ações Planejadas:</strong></p>
+          <textarea style="width: 100%; padding: 8px; border: 1px solid var(--border); border-radius: 4px; margin-bottom: 5px; min-height: 60px;" placeholder="Descreva as ações"></textarea>
+          <p><strong>Prazo:</strong></p>
+          <input type="text" style="width: 200px; padding: 8px; border: 1px solid var(--border); border-radius: 4px;" placeholder="Ex: 6 meses">
+        </div>
+
+        <div style="margin: 15px 0;">
+          <p><strong>Competência 2:</strong></p>
+          <input type="text" style="width: 100%; padding: 8px; border: 1px solid var(--border); border-radius: 4px; margin-bottom: 5px;" placeholder="Digite a competência">
+          <p><strong>Ações Planejadas:</strong></p>
+          <textarea style="width: 100%; padding: 8px; border: 1px solid var(--border); border-radius: 4px; margin-bottom: 5px; min-height: 60px;" placeholder="Descreva as ações"></textarea>
+          <p><strong>Prazo:</strong></p>
+          <input type="text" style="width: 200px; padding: 8px; border: 1px solid var(--border); border-radius: 4px;" placeholder="Ex: 12 meses">
+        </div>
+
+        <div style="margin: 15px 0;">
+          <p><strong>Competência 3:</strong></p>
+          <input type="text" style="width: 100%; padding: 8px; border: 1px solid var(--border); border-radius: 4px; margin-bottom: 5px;" placeholder="Digite a competência">
+          <p><strong>Ações Planejadas:</strong></p>
+          <textarea style="width: 100%; padding: 8px; border: 1px solid var(--border); border-radius: 4px; margin-bottom: 5px; min-height: 60px;" placeholder="Descreva as ações"></textarea>
+          <p><strong>Prazo:</strong></p>
+          <input type="text" style="width: 200px; padding: 8px; border: 1px solid var(--border); border-radius: 4px;" placeholder="Ex: 18 meses">
+        </div>
+      </div>
+
+      <div class="section-box">
+        <h3>9.2 OBJETIVOS DE CARREIRA</h3>
+        
+        <div style="margin: 15px 0;">
+          <p><strong>Curto Prazo (6-12 meses):</strong></p>
+          <textarea style="width: 100%; padding: 8px; border: 1px solid var(--border); border-radius: 4px; min-height: 80px;" placeholder="Descreva seus objetivos de curto prazo"></textarea>
+        </div>
+
+        <div style="margin: 15px 0;">
+          <p><strong>Médio Prazo (1-3 anos):</strong></p>
+          <textarea style="width: 100%; padding: 8px; border: 1px solid var(--border); border-radius: 4px; min-height: 80px;" placeholder="Descreva seus objetivos de médio prazo"></textarea>
+        </div>
+
+        <div style="margin: 15px 0;">
+          <p><strong>Longo Prazo (3-5 anos):</strong></p>
+          <textarea style="width: 100%; padding: 8px; border: 1px solid var(--border); border-radius: 4px; min-height: 80px;" placeholder="Descreva seus objetivos de longo prazo"></textarea>
+        </div>
+      </div>
+
+      <h2>10. COMENTÁRIOS ADICIONAIS</h2>
+      <div class="section-box">
+        <p>Use este espaço para quaisquer observações, experiências relevantes não capturadas acima:</p>
+        <textarea style="width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 4px; min-height: 150px; margin-top: 10px;" placeholder="Digite seus comentários adicionais"></textarea>
+      </div>
+
+      <div style="text-align: center; margin: 40px 0; padding: 20px; background: var(--primary-light); border-radius: 8px;">
+        <p style="margin: 0; font-weight: 600; color: var(--primary);">*** FIM DO TEMPLATE ***</p>
+        <p style="margin: 10px 0 0; font-size: 0.85rem; font-style: italic;">
+          Template atualizado com base no mapeamento MLS 2026 Data Stewardship Decoded + PL 2338/2023 + CadÚnico
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openTab(evt, tabName) {
+      // Hide all tab contents
+      const tabContents = document.getElementsByClassName('tab-content');
+      for (let i = 0; i < tabContents.length; i++) {
+        tabContents[i].classList.remove('active');
+      }
+
+      // Remove active class from all buttons
+      const tabButtons = document.getElementsByClassName('tab-button');
+      for (let i = 0; i < tabButtons.length; i++) {
+        tabButtons[i].classList.remove('active');
+      }
+
+      // Show the selected tab and mark button as active
+      document.getElementById(tabName).classList.add('active');
+      evt.currentTarget.classList.add('active');
+
+      // Store the active tab in localStorage
+      localStorage.setItem('activeTab', tabName);
+    }
+
+    // Restore the last active tab on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      const lastActiveTab = localStorage.getItem('activeTab') || 'tab-sobre';
+      const tabButton = document.querySelector(`[onclick*="${lastActiveTab}"]`);
+      if (tabButton) {
+        tabButton.click();
+      }
+    });
+  </script>
+</body>
+</html>
