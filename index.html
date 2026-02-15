@@ -30,6 +30,45 @@
       color: var(--text);
     }
 
+    .top-nav {
+      background: var(--primary);
+      color: white;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow);
+    }
+
+    .top-nav-link {
+      color: white;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 6px;
+      transition: all 0.2s;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .top-nav-link:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateX(-2px);
+    }
+
+    .top-nav-link svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .top-nav-brand {
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+
     .header {
       background: var(--card-bg);
       border-bottom: 2px solid var(--primary);
@@ -106,7 +145,7 @@
 
     iframe {
       width: 100%;
-      height: calc(100vh - 180px);
+      height: calc(100vh - 230px);
       border: none;
       border-radius: var(--radius);
       box-shadow: var(--shadow);
@@ -220,6 +259,22 @@
     }
 
     @media (max-width: 768px) {
+      .top-nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 15px;
+      }
+
+      .top-nav-brand {
+        font-size: 0.75rem;
+      }
+
+      .top-nav-link {
+        font-size: 0.85rem;
+        padding: 6px 12px;
+      }
+
       .header h1 {
         font-size: 1.4rem;
       }
@@ -242,21 +297,22 @@
       }
 
       iframe {
-        height: calc(100vh - 200px);
+        height: calc(100vh - 250px);
       }
     }
   </style>
 </head>
 <body>
-   <!-- Top Navigation Bar -->
+  <!-- Top Navigation Bar -->
   <div class="top-nav">
-    <a href="https://mairalimas.github.io/" class="top-nav-link" title="Home">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-      </svg>
+    <a href="https://mairalimas.github.io/" class="top-nav-link" title="Voltar ao site principal">
       Voltar ao site principal
-    </a>   
+    </a>
+    <div class="top-nav-brand">
+      Maíra Lima — Data Stewardship, Governança de Dados & IA Responsável
+    </div>
   </div>
+
   <div class="header">
     <h1>Matriz de Competências</h1>
     <p><strong>Maíra Lima - Expert data steward</strong></p>
